@@ -46,7 +46,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 ),
                 Center(
                   child: Text(
-                    "Firebase",
+                    "MIAGED",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -117,8 +117,7 @@ class _signUpScreenState extends State<signUpScreen> {
                               tapfun: () {
                                 // if (_formkey.currentState!.validate()) {
                                 print("press signup");
-                                FirebaseAuth.instance
-                                    .createUserWithEmailAndPassword(
+                                FirebaseAuth.instance.createUserWithEmailAndPassword(
                                     email: emailcon.text.toString(),
                                     password: passwordcon.text.toString())
                                     .then((value) {

@@ -49,7 +49,7 @@ class _loginscreenState extends State<loginscreen> {
                 ),
                 Center(
                   child: Text(
-                    "Firebase",
+                    "MIAGED",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
