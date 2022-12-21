@@ -24,7 +24,7 @@ class _signUpScreenState extends State<signUpScreen> {
     final passwordcon = TextEditingController();
     final _formkey = GlobalKey<FormState>();
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF01737C),//Colors.black,
       body: Stack(
         children: [
           Container(
@@ -93,6 +93,7 @@ class _signUpScreenState extends State<signUpScreen> {
                               keyboardType: TextInputType.emailAddress,
                               controller: emailcon,
                               decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.email),
                                 hintText: "Email",
                               )),
                           TextFormField(
@@ -105,7 +106,9 @@ class _signUpScreenState extends State<signUpScreen> {
                             // },
                             keyboardType: TextInputType.emailAddress,
                             controller: passwordcon,
+                            obscureText: true,
                             decoration: InputDecoration(
+                              suffixIcon: Icon(Icons.password_sharp),
                               hintText: "Password",
                             ),
                           ),

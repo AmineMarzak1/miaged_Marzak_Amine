@@ -15,9 +15,21 @@ class homescreen extends StatefulWidget {
 }
 
 class _homescreenState extends State<homescreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState((){
+      _selectedIndex = index;
+      if (index == 1) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Formulaire()));
+      }
+      if (index == 2){
+        Navigator.push(context,MaterialPageRoute( builder: (context) => Info()));
+      }
+    });
+
+    //@override
+    Widget build(BuildContext context) {
+      return Scaffold(
         appBar: AppBar(
           backgroundColor: bcolor,
           title: Text(" Home Screen "),
@@ -50,6 +62,29 @@ class _homescreenState extends State<homescreen> {
             ),
             Text(widget.name),
           ],
-        ));
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.attach_money),
+              label: 'Acheter',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Panier',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profil',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.amber [800],
+          onTap: _onItemTapped,
+        ),
+      );
+
+    }
   }
+
 }

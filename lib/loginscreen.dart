@@ -27,7 +27,7 @@ class _loginscreenState extends State<loginscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF01737C),//Colors.black,
       body: Stack(
         children: [
           Container(
@@ -81,7 +81,7 @@ class _loginscreenState extends State<loginscreen> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24),
-                          ),
+                          ), //login
                           SizedBox(
                             height: 45,
                           ),
@@ -100,6 +100,7 @@ class _loginscreenState extends State<loginscreen> {
                                     keyboardType: TextInputType.emailAddress,
                                     controller: emailcon,
                                     decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons.email),
                                       hintText: "Email",
                                     )),
                                 TextFormField(
@@ -112,7 +113,9 @@ class _loginscreenState extends State<loginscreen> {
                                   // },
                                   keyboardType: TextInputType.emailAddress,
                                   controller: passwordcon,
+                                  obscureText: true,
                                   decoration: InputDecoration(
+                                    suffixIcon: Icon(Icons.password_sharp),
                                     hintText: "Password",
                                   ),
                                 ),

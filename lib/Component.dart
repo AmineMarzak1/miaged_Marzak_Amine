@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const bcolor = Color(0xff2470c7);
+const bcolor = Color(0xFF00838F);
 
 class roundbutton extends StatelessWidget {
   final String title;
