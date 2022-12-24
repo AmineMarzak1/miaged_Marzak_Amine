@@ -6,47 +6,18 @@ import 'package:flutter/material.dart';
 
 import 'loginscreen.dart';
 
-class homescreen extends StatefulWidget {
-  final String name;
-  const homescreen({super.key, required this.name});
+class Homescreen extends StatefulWidget {
 
   @override
-  State<homescreen> createState() => _homescreenState();
+  State<Homescreen> createState() => _HomescreenState();
 }
 
-class _homescreenState extends State<homescreen> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState((){
-      _selectedIndex = index;
-      if (index == 1) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Formulaire()));
-      }
-      if (index == 2){
-        Navigator.push(context,MaterialPageRoute( builder: (context) => Info()));
-      }
-    });
+class _HomescreenState extends State<Homescreen> {
 
-    //@override
+    @override
     Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: bcolor,
-          title: Text(" Home Screen "),
-          actions: [
-            IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut().then((value) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => loginscreen()));
-                }).onError((error, stackTrace) {
-                  toastmessage(error.toString());
-                });
-              },
-              icon: Icon(Icons.logout_outlined),
-            )
-          ],
-        ),
+
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,31 +31,8 @@ class _homescreenState extends State<homescreen> {
                 ),
               ),
             ),
-            Text(widget.name),
           ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.attach_money),
-              label: 'Acheter',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Panier',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profil',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber [800],
-          onTap: _onItemTapped,
         ),
       );
-
     }
-  }
-
 }

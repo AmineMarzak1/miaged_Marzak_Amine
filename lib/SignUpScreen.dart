@@ -1,10 +1,11 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:miaged/Homescreen.dart';
 
 import 'Component.dart';
 import 'Toast.dart';
-import 'homescreen.dart';
+import 'Homescreen.dart';
 import 'package:flutter/material.dart';
 
 import 'loginscreen.dart';
@@ -131,7 +132,7 @@ class _signUpScreenState extends State<signUpScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              homescreen(name: '')));
+                                              Homescreen()));
                                 }).onError((error, stackTrace) {
                                   print("error");
 

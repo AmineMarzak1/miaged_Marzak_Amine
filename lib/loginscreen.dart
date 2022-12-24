@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'Forgetpassword.dart';
 import 'Homescreen.dart';
 import 'SignUpScreen.dart';
+import 'navbar.dart';
 import 'Toast.dart';
 
 class loginscreen extends StatefulWidget {
@@ -157,7 +158,7 @@ class _loginscreenState extends State<loginscreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              homescreen(name: '')));
+                                              BottomNavController()));
                                 }).onError((error, stackTrace) {
                                   toastmessage(error.toString());
                                 });
