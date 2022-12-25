@@ -32,6 +32,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final Stream<QuerySnapshot> _homescreenStream = FirebaseFirestore.instance.collection('vetements').snapshots();
 
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -43,9 +44,54 @@ class _HomescreenState extends State<Homescreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text("Loading");
         }
-        return ListView(
+        return Column(
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children:  [
+                  SizedBox(
+                    width: 100,
+                    child: Image.network(data['image']),
+                  ),
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data['marque'],
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(data['titre']),
+                          Text(data['taille']),
+                          Text(data['prix'].toString() + "€"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: IconButton(
+                      icon: const Icon(Icons.add_shopping_cart),
+                      onPressed: () {
+                        FirebaseFirestore.instance.collection('panier').add({
+                          'marque': data['marque'],
+                          'titre': data['titre'],
+                          'taille': data['taille'],
+                          'prix': data['prix'],
+                          'image': data['image'],
+                          'login': FirebaseAuth.instance.currentUser!.email,
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
             return ListTile(
               leading: Image.network(data['image']),
               title: Text(data['marque']),

@@ -17,7 +17,14 @@ class Panierpage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: Panier(),
+      body: new Column(
+          children: <Widget>[
+            Panier(),
+            new Text("total général du panier :"),
+          ]
+      )
+
+
     );
   }
 }
@@ -32,7 +39,15 @@ class Panier extends StatefulWidget {
 class _PanierState extends State<Panier> {
   final Stream<QuerySnapshot> _panierStream = FirebaseFirestore.instance.collection('panier').where('login', isEqualTo: FirebaseAuth.instance.currentUser!.email)
       .snapshots();
-
+  int _prixtotalpanier = 0;
+  int addTotalPrice(int prix) {
+    _prixtotalpanier = _prixtotalpanier + prix;
+    return _prixtotalpanier;
+    }
+  int lessTotalPrice(int prix) {
+    _prixtotalpanier = _prixtotalpanier - prix;
+    return _prixtotalpanier;
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -44,13 +59,63 @@ class _PanierState extends State<Panier> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text("Loading");
         }
+        return Column(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children:  [
+                  SizedBox(
+                    width: 100,
+                    child: Image.network(data['image']),
+                  ),
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(data['titre']),
+                          Text(data['taille']),
+                          Text(data['prix'].toString() + "€"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(addTotalPrice(data['prix']).toString() + "€"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        FirebaseFirestore.instance.collection('panier').doc(document.id).delete();
+                        lessTotalPrice(data['prix']);
+                      },
+                    ),
+                  ), //supprimer produit du panier
+                ],
+              ),
+            );
+          }).toList(),
+        );
         return ListView(
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
             return ListTile(
               leading: Image.network(data['image']),
               title: Text(data['marque']),
-              subtitle: Text(data['titre'] +"   taille : " + data['taille'] +"    prix : " + data['prix'].toString() +"€"),
+              subtitle: Text(data['titre'] +"   taille : " + data['taille'] +"    prix : " + data['prix'].toString() +"€" + "total : " + addTotalPrice(data['prix']).toString() + "€"),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () {
