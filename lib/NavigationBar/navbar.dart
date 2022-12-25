@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/panier.dart';
+import 'package:miaged/NavigationBar/Pages/panier.dart';
 import 'package:miaged/loginscreen.dart';
-import 'package:miaged/Homescreen.dart';
-import 'package:miaged/profil.dart';
+import 'package:miaged/NavigationBar/Pages/Homescreen.dart';
+import 'package:miaged/NavigationBar/Pages/profil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'Component.dart';
+import '../Component.dart';
 
 
 class BottomNavController extends StatefulWidget {
@@ -55,7 +55,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
-            label: "Home",
+            label: "Acheter",
           ),
 
           BottomNavigationBarItem(

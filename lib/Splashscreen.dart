@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
-import 'Homescreen.dart';
+import 'package:miaged/NavigationBar/Pages/Homescreen.dart';
 import 'loginscreen.dart';
 
 class splashscreen extends StatefulWidget {

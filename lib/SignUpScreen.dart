@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:miaged/Homescreen.dart';
+import 'package:miaged/NavigationBar/Pages/Homescreen.dart';
 
 import 'Component.dart';
 import 'Toast.dart';
-import 'Homescreen.dart';
+import 'NavigationBar/Pages/Homescreen.dart';
 import 'package:flutter/material.dart';
 
 import 'loginscreen.dart';

@@ -8,9 +8,9 @@ import 'Component.dart';
 import 'package:flutter/material.dart';
 
 import 'Forgetpassword.dart';
-import 'Homescreen.dart';
+import 'NavigationBar/Pages/Homescreen.dart';
 import 'SignUpScreen.dart';
-import 'navbar.dart';
+import 'NavigationBar/navbar.dart';
 import 'Toast.dart';
 
 class loginscreen extends StatefulWidget {
