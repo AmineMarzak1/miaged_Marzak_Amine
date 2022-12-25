@@ -20,7 +20,6 @@ class Panierpage extends StatelessWidget {
       body: new Column(
           children: <Widget>[
             Panier(),
-            new Text("total général du panier :"),
           ]
       )
 
@@ -38,10 +37,10 @@ class Panier extends StatefulWidget {
 // user10@gmail.com
 class _PanierState extends State<Panier> {
   final Stream<QuerySnapshot> _panierStream = FirebaseFirestore.instance.collection('panier').where('login', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-      .snapshots();
+      .snapshots();int _prixtotalpanier = 0;
   @override
   Widget build(BuildContext context) {
-    int _prixtotalpanier = 0;
+
     int addTotalPrice(int prix) {
       _prixtotalpanier = _prixtotalpanier + prix;
       return _prixtotalpanier;

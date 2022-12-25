@@ -1,11 +1,12 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:miaged/NavigationBar/Pages/Homescreen.dart';
 
 import 'Component.dart';
+import 'NavigationBar/navbar.dart';
 import 'Toast.dart';
-import 'NavigationBar/Pages/Homescreen.dart';
 import 'package:flutter/material.dart';
 
 import 'loginscreen.dart';
@@ -84,13 +85,6 @@ class _signUpScreenState extends State<signUpScreen> {
                             height: 45,
                           ),
                           TextFormField(
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'First Enter Email';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
                               keyboardType: TextInputType.emailAddress,
                               controller: emailcon,
                               decoration: InputDecoration(
@@ -98,13 +92,6 @@ class _signUpScreenState extends State<signUpScreen> {
                                 hintText: "Email",
                               )),
                           TextFormField(
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'First Enter Password';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
                             keyboardType: TextInputType.emailAddress,
                             controller: passwordcon,
                             obscureText: true,
@@ -132,7 +119,7 @@ class _signUpScreenState extends State<signUpScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Homescreen()));
+                                              BottomNavController()));
                                 }).onError((error, stackTrace) {
                                   print("error");
 

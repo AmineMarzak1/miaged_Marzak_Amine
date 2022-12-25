@@ -91,13 +91,6 @@ class _loginscreenState extends State<loginscreen> {
                             child: Column(
                               children: [
                                 TextFormField(
-                                  // validator: (value) {
-                                  //   if (value!.isEmpty) {
-                                  //     return 'Enter Email';
-                                  //   } else {
-                                  //     return null;
-                                  //   }
-                                  // },
                                     keyboardType: TextInputType.emailAddress,
                                     controller: emailcon,
                                     decoration: InputDecoration(
@@ -105,13 +98,6 @@ class _loginscreenState extends State<loginscreen> {
                                       hintText: "Email",
                                     )),
                                 TextFormField(
-                                  // validator: (value) {
-                                  //   if (value!.isEmpty) {
-                                  //     return 'Enter Password';
-                                  //   } else {
-                                  //     return null;
-                                  //   }
-                                  // },
                                   keyboardType: TextInputType.emailAddress,
                                   controller: passwordcon,
                                   obscureText: true,
