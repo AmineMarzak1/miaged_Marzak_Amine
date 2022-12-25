@@ -39,17 +39,13 @@ class Panier extends StatefulWidget {
 class _PanierState extends State<Panier> {
   final Stream<QuerySnapshot> _panierStream = FirebaseFirestore.instance.collection('panier').where('login', isEqualTo: FirebaseAuth.instance.currentUser!.email)
       .snapshots();
-  int _prixtotalpanier = 0;
-  int addTotalPrice(int prix) {
-    _prixtotalpanier = _prixtotalpanier + prix;
-    return _prixtotalpanier;
-    }
-  int lessTotalPrice(int prix) {
-    _prixtotalpanier = _prixtotalpanier - prix;
-    return _prixtotalpanier;
-  }
   @override
   Widget build(BuildContext context) {
+    int _prixtotalpanier = 0;
+    int addTotalPrice(int prix) {
+      _prixtotalpanier = _prixtotalpanier + prix;
+      return _prixtotalpanier;
+    }
     return StreamBuilder<QuerySnapshot>(
       stream: _panierStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -64,63 +60,50 @@ class _PanierState extends State<Panier> {
             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
             return Padding(
               padding: const EdgeInsets.all(10),
-              child: Row(
-                children:  [
-                  SizedBox(
-                    width: 100,
-                    child: Image.network(data['image']),
-                  ),
-                  SizedBox(
+              child: SizedBox(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data['titre']),
-                          Text(data['taille']),
-                          Text(data['prix'].toString() + "€"),
+                          Row(
+                            children:  [
+                              SizedBox(
+                                width: 100,
+                                child: Image.network(data['image']),
+                              ),
+                              SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(data['titre']),
+                                      Text(data['taille']),
+                                      Text(data['prix'].toString() + "€"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 100,
+                                child: IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () {
+                                    FirebaseFirestore.instance.collection('panier').doc(document.id).delete();
+                                    _prixtotalpanier = 0;
+                                  },
+                                ),
+                              ), //supprimer produit du panier
+                            ],
+                          ),
+                          SizedBox(
+                            height: 55,
+                          ),
+                          Text("totale général" + addTotalPrice(data['prix']).toString() + "€"),
                         ],
-                      ),
-                    ),
+                     ),
                   ),
-                  SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(addTotalPrice(data['prix']).toString() + "€"),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 100,
-                    child: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        FirebaseFirestore.instance.collection('panier').doc(document.id).delete();
-                        lessTotalPrice(data['prix']);
-                      },
-                    ),
-                  ), //supprimer produit du panier
-                ],
-              ),
-            );
-          }).toList(),
-        );
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-            return ListTile(
-              leading: Image.network(data['image']),
-              title: Text(data['marque']),
-              subtitle: Text(data['titre'] +"   taille : " + data['taille'] +"    prix : " + data['prix'].toString() +"€" + "total : " + addTotalPrice(data['prix']).toString() + "€"),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  FirebaseFirestore.instance.collection('panier').doc(document.id).delete();
-                },
               ),
             );
           }).toList(),
